@@ -1,5 +1,5 @@
 // config/database.js
 
 module.exports = {
-    'url': 'mongodb://172.17.0.2:27017/test'
+    'url': 'mongodb+srv://<username>:<password>@cluster0-d3hoq.mongodb.net/test?retryWrites=true&w=majority'
 };
