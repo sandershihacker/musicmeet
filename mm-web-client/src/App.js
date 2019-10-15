@@ -21,7 +21,7 @@ class App extends Component {
       method: 'POST',
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       data: qs.stringify(this.state),
-      url: 'http://localhost:8080/login'
+      url: 'http://localhost:8080/v1/auth/login'
     };
     axios(options).then(function (response) {
       console.log(response);
@@ -34,7 +34,7 @@ class App extends Component {
   }
 
   getInfo = () => {
-    axios.get('http://localhost:8080/info').then(function (res) {
+    axios.get('http://localhost:8080/v1/auth/profile').then(function (res) {
       console.log(res);
     }).catch(function (err) {
       console.log(err);

@@ -18,7 +18,7 @@ class Homepage extends Component {
 
     getInfo = () => {
         var self = this;
-        axios.get('http://localhost:8080/info').then(function (res) {
+        axios.get('http://localhost:8080/v1/auth/profile').then(function (res) {
             console.log(res);
             self.setState({
                 email: res.data.local.email

@@ -1,14 +1,21 @@
 // src/server.ts
-// This is the module that contains the server class
 
+// Imports
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Express } from "express";
+import session from "express-session";
 import morgan from "morgan";
+import passport from "passport";
 
-import authRoutes from "./routes/auth-routes";
+// Passport Setup Imports
+import { passportSetup } from "./config/passport-config";
 
+// Route Imports
+import { setupAuthRoutes } from "./routes/auth-routes";
+
+// Server Class
 export class Server {
     public app: Express;
     private port: number = 8080;
@@ -16,7 +23,6 @@ export class Server {
     constructor() {
         this.app = express();
         this.config();
-        this.addRoutes();
     }
 
     public run() {
@@ -46,9 +52,23 @@ export class Server {
             credentials: true,
             origin: "http://localhost:3000"
         }));
+
+        // Passport
+        this.app.use(session({
+            resave: false,
+            saveUninitialized: false,
+            secret: "musicmeet"
+        }));
+        passportSetup(passport);
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
+
+        // Add Routes
+        this.addRoutes();
     }
 
     private addRoutes() {
-        this.app.use("/v1/auth", authRoutes);
+        const baseUrl: string = "/v1/auth";
+        setupAuthRoutes(baseUrl, this.app, passport);
     }
 }
