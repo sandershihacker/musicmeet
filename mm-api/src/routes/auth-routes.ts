@@ -60,7 +60,10 @@ export const setupAuthRoutes = (baseUrl: string, app: Express, passport: Passpor
     // Route to log current user out
     router.get("/logout", (req: Request, res: Response) => {
         req.logout();
+        res.clearCookie("connect");
+        res.clearCookie("connect.sid");
         console.log("Logged user out.");
+        return res.redirect("/");
     });
 
     // Protected endpoint for getting a user profile

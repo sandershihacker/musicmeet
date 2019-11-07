@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
 
 const axios = require('axios').default;
 const qs = require('qs');
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8080/vi/auth"
 
-class App extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,25 +21,28 @@ class App extends Component {
       method: 'POST',
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       data: qs.stringify(this.state),
-      url: 'http://localhost:8080/v1/auth/login'
+      url: '/login'
     };
     axios(options).then(function (response) {
       console.log(response);
       window.location = "/";
     }).catch(function (error) {
-      console.log(error);
+      if (error.response.status === "401") {
+        window.alert("Wrong email/password combination.");
+      } else {
+        console.log(error);
+      }
     }).finally(() => {
       console.log("Done");
     });
   }
 
   getInfo = () => {
-    axios.get('http://localhost:8080/v1/auth/profile').then(function (res) {
+    axios.get('/profile').then(function (res) {
       console.log(res);
     }).catch(function (err) {
       console.log(err);
     });
-    console.log("hesdfsd");
   }
 
   myChangeHandler = (event) => {
@@ -51,8 +54,8 @@ class App extends Component {
   render() {
     return (
       <div>
+        <h1>Login</h1>
         <form onSubmit={this.mySubmitHandler}>
-          <h1>Login</h1>
           <p>Email:</p>
           <input
             type='text'
@@ -75,4 +78,4 @@ class App extends Component {
   }
 }
 
-export { App };
+export { Login };

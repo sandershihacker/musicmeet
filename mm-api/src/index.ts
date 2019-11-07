@@ -11,6 +11,9 @@ import mongoConfig from "./config/mongo-config.json";
 mongoose.connect(mongoConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
+}).catch((err) => {
+    console.log("MongoDB Connection failed:");
+    console.log(err);
 });
 
 // Initialize Server and Run

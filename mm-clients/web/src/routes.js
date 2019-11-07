@@ -1,17 +1,21 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Homepage, Dog, Cat, NotFound } from './components';
-import { App } from './App';
+
+import { Signup } from './Components/signup-component';
+import { Login } from './Components/login-component';
+import { PageNotFound } from './Components/404-component';
+import { Profile } from './Components/profile-component';
+import { Logout } from './Components/logout-component';
 
 const Routes = () => {
     return (
         <div>
             <Switch>
-                <Route exact path="/" component={Homepage} />
-                <Route exact path="/login" component={App} />
-                <Route exact path="/dog" component={Dog} />
-                <Route exact path="/cat" component={Cat} />
-                <Route component={NotFound} />
+                <Route exact path="/" component={Profile} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/logout" component={Logout} />
+                <Route component={PageNotFound} />
             </Switch>
         </div>
     );
