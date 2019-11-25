@@ -15,7 +15,7 @@ class Logout extends Component {
         axios.get("/logout").then((response) => {
             console.log(response);
         }).catch(function (err) {
-            window.alert("Error encountered during logout, please try again.");
+            console.log("error");
         }).finally(() => {
             window.location = "/";
         });

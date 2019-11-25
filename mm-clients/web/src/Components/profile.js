@@ -15,7 +15,6 @@ class Profile extends Component {
     getInfo = () => {
         var self = this;
         axios.get('http://localhost:8080/v1/auth/profile').then(function (res) {
-            console.log(res);
             self.setState({
                 email: res.data.local.email
             })
@@ -25,11 +24,15 @@ class Profile extends Component {
     }
 
     render() {
+        if (this.state.email === "") {
+            console.log("hey");
+        }
         return (
             <div>
                 <h1>Welcome to Musicmeet!</h1>
                 <h3>Profile Information:</h3>
                 <p>Email: {this.state.email}</p>
+                <a href="/logout">Logout</a>
             </div>
         );
     }
